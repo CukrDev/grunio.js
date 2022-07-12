@@ -64,6 +64,7 @@ scene("Game", () => {
         sprite("Grunio"),
         scale(4),
         pos(center()),
+        origin("center"),
         area(),
         body(),
     ])
@@ -128,6 +129,7 @@ scene("Game", () => {
     })
 
     player.onUpdate(() => {
+        camPos(player.pos)
         if (sleeptimer > 14) {
             if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right") && !isKeyDown("up")) {
                 player.play("sleep")
