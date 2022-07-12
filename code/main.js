@@ -106,7 +106,7 @@ scene("Game", () => {
 
     onKeyRelease(["left", "right"], () => {
         // Only reset to "idle" if player is not holding any of these keys
-        if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+        if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right") && !isKeyDown("up")) {
             player.play("idle")
             keyrelased = 1
         } else {
