@@ -7,7 +7,7 @@ import { kaboom, GAME_HEIGHT, GAME_WIDTH, _Modded, _DEBUG_ } from "../config.js"
 kaboom({
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
-        canvas: document.querySelector("#kaboom"),
+        canvas: document.querySelector("kaboom"),
         background: [50, 168, 82],
         logMax: 10,
 });
@@ -68,7 +68,6 @@ scene("Game", () => {
     })
 
     onKeyDown("left", () => {
-        // .move() is provided by pos() component, move by pixels per second
         player.move(-SPEED, 0)
         player.flipX(false)
     })
@@ -80,7 +79,7 @@ scene("Game", () => {
 })
 
 scene("Menu", () => {
-    addButton("Start", vec2(GAME_WIDTH/2, GAME_HEIGHT/2), 48*1.6, 200*1.6, "sinko", () => go("Game"))
+    addButton("Start", vec2(GAME_WIDTH/2, GAME_HEIGHT/2), 48*1, 200*1, "sinko", () => go("Game"))
 })
 
 __init__()
