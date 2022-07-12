@@ -8,7 +8,7 @@ kaboom({
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
         canvas: document.querySelector("#kaboom"),
-    background: [50, 168, 82],
+        background: [50, 168, 82],
     logMax: 10,
 });
 
