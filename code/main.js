@@ -14,7 +14,8 @@ kaboom({
 
 function loadSprites(){
     loadBean()
-    loadSprite("Grunio", "sprites/grunio.png")
+    loadRoot("./sprites")
+    loadSprite("Grunio", "grunio.png")
 }
 
 function __init__(){
