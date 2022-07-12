@@ -1,7 +1,7 @@
 import kaboom from "https://unpkg.com/kaboom/dist/kaboom.mjs";
 
-const GAME_WIDTH = 480
-const GAME_HEIGHT = 360
+const GAME_WIDTH = 480*1.5
+const GAME_HEIGHT = 360*1.5
 
 const _Modded = false
 
