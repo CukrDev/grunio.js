@@ -1,3 +1,3 @@
-# Sussy
+# Grunio.js
 
-baka
+Nie pytajcie się czemu to zrobiłem.
