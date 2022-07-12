@@ -14,8 +14,20 @@ kaboom({
 
 function loadSprites(){
     loadBean()
-    loadRoot("./sprites")
-    loadSprite("Grunio", "grunio.png")
+    loadRoot("./sprites/")
+    loadSprite("Grunio", "grunio.png", {
+        sliceX: 4,
+        anims: {
+            "walk": {
+                from: 0,
+                to: 2,
+
+                speed: 10
+            },
+            "idle": 0,
+            "sleep": 3
+        },
+    })
 }
 
 function __init__(){
@@ -66,16 +78,33 @@ scene("Game", () => {
         if (player.isGrounded()) {
             player.jump()
         }
+        var keyrelased = false
     })
 
     onKeyDown("left", () => {
         player.move(-SPEED, 0)
-        player.flipX(false)
+        player.flipX(true)
+        if (player.isGrounded() && player.curAnim() !== "walk") {
+            player.play("walk")
+        }
+        var keyrelased = false
     })
     
     onKeyDown("right", () => {
         player.move(SPEED, 0)
-        player.flipX(true)
+        player.flipX(false)
+        if (player.isGrounded() && player.curAnim() !== "walk") {
+            player.play("walk")
+        }
+        var keyrelased = false
+    })
+
+    onKeyRelease(["left", "right"], () => {
+        // Only reset to "idle" if player is not holding any of these keys
+        if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+            player.play("idle")
+        }
+        var keyrelased = true
     })
 })
 
