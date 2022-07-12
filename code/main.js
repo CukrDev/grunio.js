@@ -8,7 +8,6 @@ kaboom({
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
         canvas: document.querySelector("#kaboom"),
-        background: [50, 168, 82],
         logMax: 10,
 });
 
@@ -28,10 +27,30 @@ function loadSprites(){
             "sleep": 3
         },
     })
+    loadSprite("DirtTile_0", "DirtTile_0.png")
+    loadSprite("DirtTile_1", "DirtTile_1.png")
+    loadSprite("marchewka", "marchewka.png", {
+        sliceX: 8,
+        anims: {
+            "main": {
+                from: 0,
+                to: 7,
+
+                loop: true,
+                speed: 5,
+            }
+        },
+    })
+}
+
+function loadSounds(){
+    loadRoot("./sounds/")
+    loadSound("marchewka", "marchewka.mp3")
 }
 
 function __init__(){
     loadSprites()
+    loadSounds()
     go("Menu")
 }
 
@@ -54,8 +73,56 @@ function addButton(txt, p, h, w, font, f) {
 
 }
 
+const LEVELS = [
+	[
+		"                           ",
+		"                           ",
+		"                $          ",
+		"              ===          ",
+		"             =###          ",
+		"$           =####    $$$   ",
+		"============#####==========",
+		"###########################",
+		"###########################",
+		"###########################",
+		"###########################",
+	],
+]
 
-scene("Game", () => {
+
+const levelConf = {
+	// grid size
+	width: 64,
+	height: 64,
+	// define each object as a list of components
+	"=": () => [
+		sprite("DirtTile_0"),
+        scale(4),
+		area(),
+		solid(),
+		origin("bot"),
+        "grass",
+	],
+	"#": () => [
+		sprite("DirtTile_1"),
+		area(),
+        scale(4),
+		origin("bot"),
+		solid(),
+		"dirt",
+	],
+    "$": () => [
+		sprite("marchewka", {
+            anim: "main"
+        }),
+        scale(4),
+		origin("bot"),
+        area(),
+		"marchewka",
+	],
+}
+
+scene("Game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
     var keyrelased = true
     var sleeptimer = 0
     const SPEED = 320
@@ -69,13 +136,7 @@ scene("Game", () => {
         body(),
     ])
     
-    add([
-        rect(width(), 48),
-        outline(4),
-        area(),
-        pos(0, height() - 48),
-        solid(),
-    ])
+    const level = addLevel(LEVELS[levelId ?? 0], levelConf)
 
     onKeyDown("up", () => {
         if (player.isGrounded()) {
@@ -118,6 +179,11 @@ scene("Game", () => {
             sleeptimer = 0
         }
     })
+
+    player.onCollide("marchewka", (marchewka) => {
+		destroy(marchewka)
+        play("marchewka")
+	})
 
     loop(1, () => {
 
