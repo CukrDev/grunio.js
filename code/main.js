@@ -1,3 +1,5 @@
+"use strict";
+
 // import libraries & other stuff
 import { kaboom, GAME_HEIGHT, GAME_WIDTH, _Modded, _DEBUG_ } from "../config.js";
 
