@@ -56,6 +56,8 @@ function addButton(txt, p, h, w, font, f) {
 
 
 scene("Game", () => {
+    var keyrelased = true
+    var sleeptimer = 0
     const SPEED = 320
     
     const player = add([
@@ -78,7 +80,8 @@ scene("Game", () => {
         if (player.isGrounded()) {
             player.jump()
         }
-        var keyrelased = false
+        keyrelased = 0
+        sleeptimer = 0
     })
 
     onKeyDown("left", () => {
@@ -87,7 +90,8 @@ scene("Game", () => {
         if (player.isGrounded() && player.curAnim() !== "walk") {
             player.play("walk")
         }
-        var keyrelased = false
+        keyrelased = 0
+        sleeptimer = 0
     })
     
     onKeyDown("right", () => {
@@ -96,15 +100,36 @@ scene("Game", () => {
         if (player.isGrounded() && player.curAnim() !== "walk") {
             player.play("walk")
         }
-        var keyrelased = false
+        keyrelased = 0
+        sleeptimer = 0
     })
 
     onKeyRelease(["left", "right"], () => {
         // Only reset to "idle" if player is not holding any of these keys
         if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
             player.play("idle")
+            keyrelased = 1
+        } else {
+            keyrelased = 0
+            sleeptimer = 0
         }
-        var keyrelased = true
+    })
+
+    loop(1, () => {
+
+        if (keyrelased = 1) {
+            sleeptimer += 1
+        } else {
+            sleeptimer = 0
+        }
+        
+        if (sleeptimer > 14) {
+            if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+                player.play("sleep")
+            }
+        }
+
+        
     })
 })
 
