@@ -79,6 +79,9 @@ scene("Game", () => {
     onKeyDown("up", () => {
         if (player.isGrounded()) {
             player.jump()
+            if (player.curAnim() !== "idle") {
+                player.play("idle")
+            }
         }
         keyrelased = 0
         sleeptimer = 0
@@ -122,14 +125,18 @@ scene("Game", () => {
         } else {
             sleeptimer = 0
         }
-        
+    })
+
+    player.onUpdate(() => {
         if (sleeptimer > 14) {
-            if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right")) {
+            if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right") && !isKeyDown("up")) {
                 player.play("sleep")
             }
         }
 
-        
+        if (keyrelased = 0) {
+            sleeptimer = 0
+        }
     })
 })
 
