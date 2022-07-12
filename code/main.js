@@ -7,9 +7,10 @@ import { kaboom, GAME_HEIGHT, GAME_WIDTH, _Modded, _DEBUG_ } from "../config.js"
 kaboom({
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
+        crisp: true,
         canvas: document.querySelector("#kaboom"),
         background: [50, 168, 82],
-    logMax: 10,
+        logMax: 10,
 });
 
 function loadSprites(){
