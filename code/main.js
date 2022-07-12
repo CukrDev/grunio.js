@@ -7,7 +7,7 @@ import { kaboom, GAME_HEIGHT, GAME_WIDTH, _Modded, _DEBUG_ } from "../config.js"
 kaboom({
     width: GAME_WIDTH,
     height: GAME_HEIGHT,
-        canvas: document.querySelector("kaboom"),
+        canvas: document.querySelector("#kaboom"),
         background: [50, 168, 82],
         logMax: 10,
 });
