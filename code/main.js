@@ -49,6 +49,7 @@ function loadSounds(){
     loadSound("marchewka", "marchewka.mp3")
     loadSound("MaxMarchewki", "MaxMarchewki.mp3")
     loadSound("skok", "skok.mp3")
+    loadSound("chrapanie", "chrapanie.mp3")
 }
 
 function __init__(){
