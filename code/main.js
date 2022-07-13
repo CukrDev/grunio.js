@@ -47,6 +47,8 @@ function loadSprites(){
 function loadSounds(){
     loadRoot("./sounds/")
     loadSound("marchewka", "marchewka.mp3")
+    loadSound("MaxMarchewki", "MaxMarchewki.mp3")
+    loadSound("skok", "skok.mp3")
 }
 
 function __init__(){
@@ -129,7 +131,7 @@ scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) =>
     const player = add([
         sprite("Grunio"),
         scale(4),
-        pos(center()),
+        pos(GAME_WIDTH, GAME_HEIGHT),
         origin("bot"),
         area({ width: 18, height: 11. }),
         body(),
@@ -139,6 +141,7 @@ scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) =>
 
     onKeyDown(["up", "space"], () => {
         if (player.isGrounded()) {
+            play("skok")
             player.jump()
             if (player.curAnim() !== "idle") {
                 player.play("idle")
@@ -185,6 +188,7 @@ scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) =>
         MarchewkiUI.text = marchewki+"/"+[maxmarchewki]
         if (marchewki == [maxmarchewki]) {
             MarchewkiUI.color = rgb(235, 128, 52)
+            play("MaxMarchewki")
         }
         play("marchewka")
 	})
