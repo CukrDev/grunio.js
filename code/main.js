@@ -58,17 +58,15 @@ function __init__(){
     go("Menu")
 }
 
-function addButton(txt, p, h, w, font, f) {
+function addButton(txt, p, areascale, font, s, f) {
     
     const btn = add([
-        scale(1),
+        scale(s),
         text(txt, {
             font: font,
-            size: h,
-            width: w,
         }),
         pos(p),
-        area(),
+        area({ scale: areascale }),
         origin("center"),
         fixed(),
     ])
@@ -218,7 +216,7 @@ scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) =>
 })
 
 scene("Menu", () => {
-    addButton("Start", vec2(GAME_WIDTH/2, GAME_HEIGHT/2), 48*1, 200*1, "sinko", () => go("Level"))
+    addButton("Start", center(), 6, "sinko", 6, () => go("Level", { levelId: 0, maxmarchewki: 11 }))
 })
 
 __init__()
