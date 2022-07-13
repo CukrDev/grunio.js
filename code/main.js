@@ -107,7 +107,7 @@ const levelConf = {
 	],
 }
 
-scene("Game", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) => {
+scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) => {
     var marchewki = 0
     var keyrelased = true
     var sleeptimer = 0
@@ -213,7 +213,7 @@ scene("Game", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) => 
 })
 
 scene("Menu", () => {
-    addButton("Start", vec2(GAME_WIDTH/2, GAME_HEIGHT/2), 48*1, 200*1, "sinko", () => go("Game"))
+    addButton("Start", vec2(GAME_WIDTH/2, GAME_HEIGHT/2), 48*1, 200*1, "sinko", () => go("Level"))
 })
 
 __init__()
