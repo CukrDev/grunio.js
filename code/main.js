@@ -2,6 +2,7 @@
 
 // import libraries & other stuff
 import { kaboom, GAME_HEIGHT, GAME_WIDTH, _Modded, _DEBUG_ } from "../config.js";
+import { LEVELS } from "../code/levels.js"
 
 // initialize kaboom
 kaboom({
@@ -73,22 +74,6 @@ function addButton(txt, p, h, w, font, f) {
 
 }
 
-const LEVELS = [
-	[
-		"                            =====                     ",
-		"                                 = $                  ",
-		"                $                 ===                 ",
-		"              ===                     $               ",
-		"             =###                    ===              ",
-		"$           =####    $$$                              ",
-		"============#####=====================================",
-		"######################################################",
-		"######################################################",
-		"######################################################",
-		"######################################################",
-	],
-]
-
 
 const levelConf = {
 	// grid size
@@ -100,7 +85,7 @@ const levelConf = {
         scale(4),
 		area(),
 		solid(),
-		origin("center"),
+		origin("bot"),
         "grass",
 	],
 	"#": () => [
@@ -117,15 +102,29 @@ const levelConf = {
         }),
         scale(4),
 		origin("bot"),
-        area(),
+        area({ width: 18 }),
 		"marchewka",
 	],
 }
 
-scene("Game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
+scene("Game", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) => {
+    var marchewki = 0
     var keyrelased = true
     var sleeptimer = 0
     const SPEED = 320
+    
+    const MarchewkiUI = add([
+        text(marchewki+"/"+[maxmarchewki], {
+            font:
+             "sinko"
+        }),
+        color(WHITE),
+        scale(4),
+	    pos(GAME_WIDTH/2-355, GAME_HEIGHT/2+230),
+        area(),
+        z(99),
+        fixed(),
+    ])
     
     const player = add([
         sprite("Grunio"),
@@ -138,7 +137,7 @@ scene("Game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
     
     const level = addLevel(LEVELS[levelId ?? 0], levelConf)
 
-    onKeyDown("up", () => {
+    onKeyDown(["up", "space"], () => {
         if (player.isGrounded()) {
             player.jump()
             if (player.curAnim() !== "idle") {
@@ -182,6 +181,11 @@ scene("Game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
 
     player.onCollide("marchewka", (marchewka) => {
 		destroy(marchewka)
+        marchewki += 1
+        MarchewkiUI.text = marchewki+"/"+[maxmarchewki]
+        if (marchewki == [maxmarchewki]) {
+            MarchewkiUI.color = rgb(235, 128, 52)
+        }
         play("marchewka")
 	})
 
@@ -195,7 +199,7 @@ scene("Game", ({ levelId, coins } = { levelId: 0, coins: 0 }) => {
     })
 
     player.onUpdate(() => {
-        camPos(player.pos)
+        camPos(player.pos.x, player.pos.y-90)
         if (sleeptimer > 14) {
             if (player.isGrounded() && !isKeyDown("left") && !isKeyDown("right") && !isKeyDown("up")) {
                 player.play("sleep")
