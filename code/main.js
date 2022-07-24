@@ -30,6 +30,7 @@ function loadSprites(){
     })
     loadSprite("DirtTile_0", "DirtTile_0.png")
     loadSprite("DirtTile_1", "DirtTile_1.png")
+    loadSprite("MapBtn1", "MapBtn1.png")
     loadSprite("marchewka", "marchewka.png", {
         sliceX: 8,
         anims: {
@@ -215,7 +216,12 @@ scene("Level", ({ levelId, maxmarchewki, levelConfig } = { levelId: 0, maxmarche
     })
 })
 
+scene("LevelSelection", () => {
+    const MapBtn1 = add([
+        sprite("MapBtn1")
 
+    ])
+})
 
 scene("Menu", () => {
     addButton("Start", center(), 6, "sinko", 6, () => go("LevelSelection"))
