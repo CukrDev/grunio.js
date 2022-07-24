@@ -108,7 +108,7 @@ const levelConf = {
 	],
 }
 
-scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) => {
+scene("Level", ({ levelId, maxmarchewki, levelConfig } = { levelId: 0, maxmarchewki: 0, levelConfig: 0 }) => {
     var marchewki = 0
     var keyrelased = true
     var sleeptimer = 0
@@ -136,7 +136,7 @@ scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) =>
         body(),
     ])
     
-    const level = addLevel(LEVELS[levelId ?? 0], levelConf)
+    const level = addLevel(LEVELS[levelId ?? 0], levelConfig)
 
     onKeyDown(["up", "space"], () => {
         if (player.isGrounded()) {
@@ -215,8 +215,10 @@ scene("Level", ({ levelId, maxmarchewki } = { levelId: 0, maxmarchewki: 11 }) =>
     })
 })
 
+
+
 scene("Menu", () => {
-    addButton("Start", center(), 6, "sinko", 6, () => go("Level", { levelId: 0, maxmarchewki: 11 }))
+    addButton("Start", center(), 6, "sinko", 6, () => go("LevelSelection"))
 })
 
 __init__()
